@@ -6,10 +6,76 @@
         xmlns:local="clr-namespace:MVVMLibe"
         mc:Ignorable="d"
         Icon="/Images/Logo/logo-small.png"
-        AllowsTransparency="True"
-        Title="MainWindow" Height="350" Width="525"
-        WindowStyle="None">
+        Title="Bienvenue" Height="600" Width="900"
+        x:Name="AppWindow"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <!-- Bordure externe avec la Marge drop shadow de la fenêtre principale -->
+                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
+                            <!-- Contour de la fenêtre principale -->
+                            <Grid>
+                                <!-- Bordure et drop shadow de la fenêtre-->
+                                <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
+                                        Background="{Binding ForegroundLightBrush, FallbackValue=White}">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2"/>
+                                    </Border.Effect>
+                                </Border>
+                                
+                                <!-- Contenu principal de la fenêtre -->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="{Binding TitleHeightGridLenght, FallbackValue=42}"/>
+                                        <!-- Drop Shadow-->
+                                        <RowDefinition Height="Auto"/>
+                                        <!-- Contenu de la fenêtre -->
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    
+                                    <!-- Barre de titre-->
+                                    <Grid Grid.Row="0" Panel.ZIndex="1">
+                                        <Grid.ColumnDefinitions>
+                                            <!--Iccon-->
+                                            <ColumnDefinition Width="Auto"/>
+                                            <!-- Titre -->
+                                            <ColumnDefinition Width="*"/>
+                                            <!-- Boutons -->
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <!-- Icone-->
+                                        <Button Style="{StaticResource SystemIconButton}" Command="{Binding MenuCommand}">
+                                            <Image Source="/Images/Logo/logo-small.png"/>
+                                        </Button>
+                                    </Grid>
+
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="{Binding TitleHeight}"
+            CornerRadius="0"
+            GlassFrameThickness="0"
+            />
+    </WindowChrome.WindowChrome>
+    
     <Grid>
-        <TextBlock Text="Bienvenue !" FontFamily="{StaticResource CaviarRegular}" FontSize="40"/>
+        <!--<TextBlock Text="Bienvenue !" FontFamily="{StaticResource CaviarRegular}" FontSize="40"/>-->
+        <TextBlock Text="{Binding Test}"/>
     </Grid>
 </Window>
