@@ -95,6 +95,22 @@ namespace MVVMLibe
         public int TitleHeight { get; set; } = 42;
 
         public GridLength TitleHeightGridLenght { get { return new GridLength(TitleHeight + ResiseBorder); } }
+
+        /// <summary>
+        /// Largeur minimum de la fenêtre en pixels
+        /// </summary>
+        public double WindowMinWidth { get; set; } = 400;
+
+        /// <summary>
+        /// Hauteur minimum de la fenêtre en pixels
+        /// </summary>
+        public double WindowMinHeight { get; set; } = 400;
+
+        /// <summary>
+        /// Padding du contenu de la fenêtre principale
+        /// </summary>
+        public Thickness InnerContentPadding { get { return new Thickness(ResiseBorder); } }
+
         #endregion
 
         #region Commands
@@ -144,7 +160,7 @@ namespace MVVMLibe
             };
 
             // Créer les commandes
-            MinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Maximized);
+            MinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => mWindow.Close());
             MenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(mWindow, GetMousePosition()));

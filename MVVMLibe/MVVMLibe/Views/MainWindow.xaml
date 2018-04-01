@@ -6,11 +6,13 @@
         xmlns:local="clr-namespace:MVVMLibe"
         mc:Ignorable="d"
         Icon="/Images/Logo/logo-small.png"
-        Title="Bienvenue" Height="600" Width="900"
+        Title="Bienvenue..." Height="600" Width="900"
         x:Name="AppWindow"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        MinHeight="{Binding WindowMinHeight}"
+        MinWidth="{Binding WindowMinWidth}">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
@@ -21,6 +23,11 @@
                         <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
                             <!-- Contour de la fenêtre principale -->
                             <Grid>
+                                <!-- masque d'opcité pour coins de la grille-->
+                                <Border x:Name="Container"
+                                        Background="{StaticResource BackgroundLightBrush}"
+                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
+                                        />
                                 <!-- Bordure et drop shadow de la fenêtre-->
                                 <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
                                         Background="{Binding ForegroundLightBrush, FallbackValue=White}">
@@ -31,6 +38,12 @@
                                 
                                 <!-- Contenu principal de la fenêtre -->
                                 <Grid>
+                                    
+                                    <!-- Corner clipping-->
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=Container}"/>
+                                    </Grid.OpacityMask>
+                                    
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="{Binding TitleHeightGridLenght, FallbackValue=42}"/>
                                         <!-- Drop Shadow-->
@@ -51,10 +64,59 @@
                                         </Grid.ColumnDefinitions>
                                         
                                         <!-- Icone-->
-                                        <Button Style="{StaticResource SystemIconButton}" Command="{Binding MenuCommand}">
+                                        <Button Grid.Column="0"
+                                            Style="{StaticResource SystemIconButton}" Command="{Binding MenuCommand}">
                                             <Image Source="/Images/Logo/logo-small.png"/>
                                         </Button>
+                                        
+                                        <!-- Texte -->
+                                        <Viewbox Grid.Column="1" Margin="0">
+                                            <TextBlock Style="{StaticResource HeaderText}"
+                                                   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue=Bienvenue}"/>
+
+                                        </Viewbox>
+                                        
+                                        <!-- Windoww Buttons-->
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <Button Style="{StaticResource WindowControlButton}"
+                                                    Command="{Binding MinimizeCommand}"
+                                                    Content="_"/>
+                                            <Button Style="{StaticResource WindowControlButton}"
+                                                    Command="{Binding MaximizeCommand}"
+                                                    Content="[ ]"/>
+                                            <Button Style="{StaticResource WindowCloseButton}" 
+                                                    Command="{Binding CloseCommand}"
+                                                    Content="X"/>
+                                        </StackPanel>
+
                                     </Grid>
+
+                                    <!-- DropShadow -->
+
+                                    <Border Grid.Row="1" Height="6" BorderThickness="0 0.2 0 0">
+                                        <!-- Underling-->
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="0.0"/>
+                                                <GradientStop Color="{StaticResource ForegroundDark}" Offset="0.5"/>
+                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+
+                                        <!-- Background-->
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Color="{StaticResource BackgroundVeryLight}" Offset="0.0"/>
+                                                <GradientStop Color="{StaticResource BackgroundLight}" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+
+                                    </Border>
+                                    
+                                    <!-- Page content -->
+                                    <Border Grid.Row="2" Padding="{Binding InnerContentPadding}">
+                                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                                    </Border>
 
                                 </Grid>
                             </Grid>
@@ -76,6 +138,6 @@
     
     <Grid>
         <!--<TextBlock Text="Bienvenue !" FontFamily="{StaticResource CaviarRegular}" FontSize="40"/>-->
-        <TextBlock Text="{Binding Test}"/>
+        <TextBlock Text="TEST"/>
     </Grid>
 </Window>
