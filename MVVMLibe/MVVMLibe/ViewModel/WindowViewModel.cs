@@ -30,13 +30,11 @@ namespace MVVMLibe
         /// <summary>
         /// L'angle des coins autour de la fenêtre
         /// </summary>
-        private int mWindowRadius = 10;
+        private int mWindowRadius = 4;
 
         #endregion
 
-
         #region Public Properties
-
 
         /// <summary>
         /// La taille des borudres autour de la fenêtre
@@ -66,12 +64,11 @@ namespace MVVMLibe
         /// <summary>
         /// La marge autour de la fenêtre pour autoriser le drop shodow
         /// </summary>
-        public Thickness OuterMarginSizeThickness { get { return new Thickness(mOuterMarginSize); } }
-
+        public Thickness OuterMarginSizeThickness { get { return mWindow.WindowState == WindowState.Maximized ? new Thickness(0) : new Thickness(mOuterMarginSize);} }
 
         /// <summary>
-        /// L'angle des coins autour de la fenêtre
-        /// </summary>
+/// L'angle des coins autour de la fenêtre
+/// </summary>
         public int WindowRadius
         {
             get

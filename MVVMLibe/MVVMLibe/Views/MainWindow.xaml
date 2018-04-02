@@ -26,8 +26,9 @@
                                 <!-- masque d'opcité pour coins de la grille-->
                                 <Border x:Name="Container"
                                         Background="{StaticResource BackgroundLightBrush}"
-                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
+                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=4}"
                                         />
+                                
                                 <!-- Bordure et drop shadow de la fenêtre-->
                                 <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
                                         Background="{Binding ForegroundLightBrush, FallbackValue=White}">
@@ -38,12 +39,7 @@
                                 
                                 <!-- Contenu principal de la fenêtre -->
                                 <Grid>
-                                    
-                                    <!-- Corner clipping-->
-                                    <Grid.OpacityMask>
-                                        <VisualBrush Visual="{Binding ElementName=Container}"/>
-                                    </Grid.OpacityMask>
-                                    
+                                                     
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="{Binding TitleHeightGridLenght, FallbackValue=42}"/>
                                         <!-- Drop Shadow-->
@@ -51,6 +47,11 @@
                                         <!-- Contenu de la fenêtre -->
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
+
+                                    <!-- Corner clipping-->
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=Container}"/>
+                                    </Grid.OpacityMask>
                                     
                                     <!-- Barre de titre-->
                                     <Grid Grid.Row="0" Panel.ZIndex="1">
@@ -106,7 +107,7 @@
                                         <!-- Background-->
                                         <Border.Background>
                                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                <GradientStop Color="{StaticResource BackgroundVeryLight}" Offset="0.0"/>
+                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="0.0"/>
                                                 <GradientStop Color="{StaticResource BackgroundLight}" Offset="1.0"/>
                                             </LinearGradientBrush>
                                         </Border.Background>
@@ -137,7 +138,6 @@
     </WindowChrome.WindowChrome>
     
     <Grid>
-        <!--<TextBlock Text="Bienvenue !" FontFamily="{StaticResource CaviarRegular}" FontSize="40"/>-->
-        <TextBlock Text="TEST"/>
+        <Button Content="TEST BUTOON"/>
     </Grid>
 </Window>
