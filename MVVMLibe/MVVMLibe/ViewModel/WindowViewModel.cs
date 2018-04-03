@@ -67,8 +67,8 @@ namespace MVVMLibe
         public Thickness OuterMarginSizeThickness { get { return mWindow.WindowState == WindowState.Maximized ? new Thickness(0) : new Thickness(mOuterMarginSize);} }
 
         /// <summary>
-/// L'angle des coins autour de la fenêtre
-/// </summary>
+        /// L'angle des coins autour de la fenêtre
+        /// </summary>
         public int WindowRadius
         {
             get
@@ -89,7 +89,7 @@ namespace MVVMLibe
         /// <summary>
         /// La hauteur de la barre de titre de la fenêtre
         /// </summary>
-        public int TitleHeight { get; set; } = 42;
+        public int TitleHeight { get; set; } = 30;
 
         public GridLength TitleHeightGridLenght { get { return new GridLength(TitleHeight + ResiseBorder); } }
 
@@ -107,6 +107,11 @@ namespace MVVMLibe
         /// Padding du contenu de la fenêtre principale
         /// </summary>
         public Thickness InnerContentPadding { get { return new Thickness(ResiseBorder); } }
+
+        /// <summary>
+        /// La page en cours affichée
+        /// </summary>
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Login;
 
         #endregion
 
